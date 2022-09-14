@@ -14,13 +14,11 @@ namespace WebApiAutores.Controllers
         {
             this.context = context;
         }
-
-        [HttpGet]
+        [HttpGet]// api/autores
+        [HttpGet("listado")]// api/autores/listado
+        [HttpGet("/listado")]
         public async Task<ActionResult<List<Autor>>> Get()
         {
-
-
-
             return await context.Autores.Include(x =>x.Libros).ToListAsync();
 
             //return new List<Autor>()
@@ -30,6 +28,12 @@ namespace WebApiAutores.Controllers
             //};
         }
 
+        [HttpGet("primero")]// api/autores/primero]// api/autores/primero
+
+        public async Task<ActionResult<Autor>> PrimerAutor()
+        {
+            return await context.Autores.FirstOrDefaultAsync();
+        }
 
         [HttpPost]
         public async Task<ActionResult> Post(Autor autor)
