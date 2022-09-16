@@ -34,7 +34,38 @@ namespace WebApiAutores.Controllers
         {
             return await context.Autores.FirstOrDefaultAsync();
         }
+        [HttpGet("{id:int}/{param2=Person}")]
+        public async Task<ActionResult<Autor>> Get(int id,string param2)
+        {
+            var autor = await context.Autores.FirstOrDefaultAsync(x => x.Id == id);
 
+
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return autor;
+
+        }
+        [HttpGet("{nombre}")]
+        public async Task<ActionResult<Autor>> Get(string nombre)
+        {
+            var autor = await context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre));
+
+
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return autor;
+
+        }
         [HttpPost]
         public async Task<ActionResult> Post(Autor autor)
         {
