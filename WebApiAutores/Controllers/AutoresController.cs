@@ -56,44 +56,44 @@ namespace WebApiAutores.Controllers
 
 
 
-            //    return autor;
+            return autor;
 
-            //}
-            //[HttpGet("{id:int}/{param2=Person}")]
-            //public ActionResult<Autor> Get(int id, string param2)
-            //{
-            //    var autor =  context.Autores.FirstOrDefault(x => x.Id == id);
-
-
-            //    if (autor == null)
-            //    {
-            //        return NotFound();
-            //    }
+        }
+        //[HttpGet("{id:int}/{param2=Person}")]
+        //public ActionResult<Autor> Get(int id, string param2)
+        //{
+        //    var autor =  context.Autores.FirstOrDefault(x => x.Id == id);
 
 
-
-            //    return autor;
-
-            //}
-
-            //[HttpGet("{id:int}/{param2=Person}")]
-            //public IActionResult Get(int id, string param2)
-            //{
-            //    var autor = context.Autores.FirstOrDefault(x => x.Id == id);
-
-
-            //    if (autor == null)
-            //    {
-            //        return NotFound();
-            //    }
+        //    if (autor == null)
+        //    {
+        //        return NotFound();
+        //    }
 
 
 
-            //    return Ok(autor);
+        //    return autor;
 
-            //}
+        //}
 
-            [HttpGet("{nombre}")]
+        //[HttpGet("{id:int}/{param2=Person}")]
+        //public IActionResult Get(int id, string param2)
+        //{
+        //    var autor = context.Autores.FirstOrDefault(x => x.Id == id);
+
+
+        //    if (autor == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+
+
+        //    return Ok(autor);
+
+        //}
+
+        [HttpGet("{nombre}")]
         public async Task<ActionResult<Autor>> Get(string nombre)
         {
             var autor = await context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre));
