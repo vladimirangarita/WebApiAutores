@@ -14,20 +14,29 @@ namespace WebApiAutores.Controllers
         {
             this.context = context;
         }
+        //[HttpGet]// api/autores
+        //[HttpGet("listado")]// api/autores/listado
+        //[HttpGet("/listado")]
+        //public async Task<ActionResult<List<Autor>>> Get()
+        //{
+        //    return await context.Autores.Include(x =>x.Libros).ToListAsync();
+
+        //    //return new List<Autor>()
+        //    //{
+        //    //    new Autor(){Id=1,Nombre="Felipe"},
+        //    //    new Autor(){Id=2, Nombre="Claudia"}
+        //    //};
+        //}
+
         [HttpGet]// api/autores
         [HttpGet("listado")]// api/autores/listado
         [HttpGet("/listado")]
-        public async Task<ActionResult<List<Autor>>> Get()
+        public List<Autor> Get()
         {
-            return await context.Autores.Include(x =>x.Libros).ToListAsync();
+            return  context.Autores.Include(x => x.Libros).ToList();
 
-            //return new List<Autor>()
-            //{
-            //    new Autor(){Id=1,Nombre="Felipe"},
-            //    new Autor(){Id=2, Nombre="Claudia"}
-            //};
+          
         }
-
         [HttpGet("primero")]// api/autores/primero]// api/autores/primero
 
         public async Task<ActionResult<Autor>> PrimerAutor()
@@ -35,7 +44,7 @@ namespace WebApiAutores.Controllers
             return await context.Autores.FirstOrDefaultAsync();
         }
         [HttpGet("{id:int}/{param2=Person}")]
-        public async Task<ActionResult<Autor>> Get(int id,string param2)
+        public async Task<ActionResult<Autor>> Get(int id, string param2)
         {
             var autor = await context.Autores.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -47,10 +56,44 @@ namespace WebApiAutores.Controllers
 
 
 
-            return autor;
+            //    return autor;
 
-        }
-        [HttpGet("{nombre}")]
+            //}
+            //[HttpGet("{id:int}/{param2=Person}")]
+            //public ActionResult<Autor> Get(int id, string param2)
+            //{
+            //    var autor =  context.Autores.FirstOrDefault(x => x.Id == id);
+
+
+            //    if (autor == null)
+            //    {
+            //        return NotFound();
+            //    }
+
+
+
+            //    return autor;
+
+            //}
+
+            //[HttpGet("{id:int}/{param2=Person}")]
+            //public IActionResult Get(int id, string param2)
+            //{
+            //    var autor = context.Autores.FirstOrDefault(x => x.Id == id);
+
+
+            //    if (autor == null)
+            //    {
+            //        return NotFound();
+            //    }
+
+
+
+            //    return Ok(autor);
+
+            //}
+
+            [HttpGet("{nombre}")]
         public async Task<ActionResult<Autor>> Get(string nombre)
         {
             var autor = await context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre));
