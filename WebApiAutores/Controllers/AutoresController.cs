@@ -14,34 +14,40 @@ namespace WebApiAutores.Controllers
         {
             this.context = context;
         }
-        //[HttpGet]// api/autores
-        //[HttpGet("listado")]// api/autores/listado
-        //[HttpGet("/listado")]
-        //public async Task<ActionResult<List<Autor>>> Get()
-        //{
-        //    return await context.Autores.Include(x =>x.Libros).ToListAsync();
-
-        //    //return new List<Autor>()
-        //    //{
-        //    //    new Autor(){Id=1,Nombre="Felipe"},
-        //    //    new Autor(){Id=2, Nombre="Claudia"}
-        //    //};
-        //}
-
         [HttpGet]// api/autores
         [HttpGet("listado")]// api/autores/listado
         [HttpGet("/listado")]
-        public List<Autor> Get()
+        public async Task<ActionResult<List<Autor>>> Get()
         {
-            return  context.Autores.Include(x => x.Libros).ToList();
+            return await context.Autores.Include(x => x.Libros).ToListAsync();
 
-          
+            //return new List<Autor>()
+            //{
+            //    new Autor(){Id=1,Nombre="Felipe"},
+            //    new Autor(){Id=2, Nombre="Claudia"}
+            //};
         }
-        [HttpGet("primero")]// api/autores/primero]// api/autores/primero
 
-        public async Task<ActionResult<Autor>> PrimerAutor()
+        //[HttpGet]// api/autores
+        //[HttpGet("listado")]// api/autores/listado
+        //[HttpGet("/listado")]
+        //public List<Autor> Get()
+        //{
+        //    return  context.Autores.Include(x => x.Libros).ToList();
+
+
+        //}
+        [HttpGet("primero")]// api/autores/primero]// api/autores/primero?nombre=Vladimir&Apellido=Angarita&
+
+        public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int miValor, [FromQuery] string nombre)
         {
             return await context.Autores.FirstOrDefaultAsync();
+        }
+        [HttpGet("primero2")]// api/autores/primero]// api/autores/primero
+
+        public  ActionResult<Autor> PrimerAutor2()
+        {
+            return new Autor() { Nombre = "Inventado" };
         }
         [HttpGet("{id:int}/{param2=Person}")]
         public async Task<ActionResult<Autor>> Get(int id, string param2)
@@ -94,7 +100,7 @@ namespace WebApiAutores.Controllers
         //}
 
         [HttpGet("{nombre}")]
-        public async Task<ActionResult<Autor>> Get(string nombre)
+        public async Task<ActionResult<Autor>> Get([FromRoute]string nombre)
         {
             var autor = await context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre));
 
@@ -110,7 +116,7 @@ namespace WebApiAutores.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult> Post(Autor autor)
+        public async Task<ActionResult> Post([FromBody]Autor autor)
         {
 
             //var ExisteAutor = await context.Autores.AnyAsync(x => x.Nombre == autor.Nombre);
