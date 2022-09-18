@@ -1,4 +1,4 @@
-﻿//using WebApiAutores.Validaciones;
+﻿using WebApiAutores.Validaciones;
 
 namespace WebApiAutores.Entidades
 {
@@ -6,6 +6,7 @@ namespace WebApiAutores.Entidades
     {
         public int Id { get; set; }
         //[PrimeraLetraMayuscula]
+        [PrimeraLetraMayuscula]
         public string Titulo { get; set; }
         public int AutorId { get; set; }
 
