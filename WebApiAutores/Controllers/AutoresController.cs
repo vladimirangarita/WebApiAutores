@@ -119,12 +119,12 @@ namespace WebApiAutores.Controllers
         public async Task<ActionResult> Post([FromBody]Autor autor)
         {
 
-            //var ExisteAutor = await context.Autores.AnyAsync(x => x.Nombre == autor.Nombre);
+            var ExisteAutor = await context.Autores.AnyAsync(x => x.Nombre == autor.Nombre);
 
-            //if (ExisteAutor)
-            //{
-            //    return BadRequest($"Ya existe {autor.Nombre}");
-            //}
+            if (ExisteAutor)
+            {
+                return BadRequest($"Ya existe {autor.Nombre}");
+            }
 
             context.Add(autor);
             await context.SaveChangesAsync();
