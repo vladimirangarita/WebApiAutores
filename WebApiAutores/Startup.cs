@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-
+using WebApiAutores.Servicios;
+using WebApiAutores.Controllers;
 namespace WebApiAutores
 {
     public class Startup
@@ -8,7 +9,10 @@ namespace WebApiAutores
 
         public Startup(IConfiguration configuration)
         {
-            
+            //Configuration = configuration;
+            //var AutoresController = new AutoresController(new AplicationDbContext(null),
+            //    new ServicioA(new Logger())
+            //    );
 
             Configuration = configuration;
         }
@@ -21,6 +25,12 @@ namespace WebApiAutores
             options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
             //services.AddEndpointsApiExplorer();
+            services.AddTransient<IServicio, ServicioA>();
+
+            services.AddTransient<ServicioTransient>();
+            services.AddScoped<ServicioScoped>();
+            services.AddSingleton<ServicioSingleton>();
+
             services.AddSwaggerGen();
         }
 
