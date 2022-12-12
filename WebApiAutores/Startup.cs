@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using WebApiAutores.Servicios;
 using WebApiAutores.Controllers;
 using WebApiAutores.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebApiAutores
 {
@@ -32,7 +33,8 @@ namespace WebApiAutores
             services.AddTransient<ServicioTransient>();
             services.AddScoped<ServicioScoped>();
             services.AddSingleton<ServicioSingleton>();
-
+            services.AddResponseCaching();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             services.AddSwaggerGen();
         }
 
@@ -68,7 +70,7 @@ namespace WebApiAutores
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            //app.UseResponseCaching();
+            app.UseResponseCaching();
 
             app.UseAuthorization();
             //app.UseAuthentication();
