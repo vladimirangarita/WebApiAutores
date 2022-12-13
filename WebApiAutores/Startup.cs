@@ -42,6 +42,7 @@ namespace WebApiAutores
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             services.AddSwaggerGen();
             services.AddTransient<MiFiltroDeAccion>();
+            services.AddHostedService<EscribirEnArchivo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILogger<Startup>logger)
