@@ -4,6 +4,7 @@ using WebApiAutores.Servicios;
 using WebApiAutores.Controllers;
 using WebApiAutores.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using WebApiAutores.Filtros;
 
 namespace WebApiAutores
 {
@@ -22,7 +23,11 @@ namespace WebApiAutores
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(x =>
+            services.AddControllers(opciones =>
+            
+            opciones.Filters.Add(typeof(FiltroDeExcepcion))
+            
+            ).AddJsonOptions(x =>
             x.JsonSerializerOptions.ReferenceHandler=ReferenceHandler.IgnoreCycles);
             services.AddDbContext<AplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
@@ -36,6 +41,7 @@ namespace WebApiAutores
             services.AddResponseCaching();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             services.AddSwaggerGen();
+            services.AddTransient<MiFiltroDeAccion>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILogger<Startup>logger)
